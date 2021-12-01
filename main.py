@@ -26,7 +26,7 @@ def get_content(driver, sl):
     for i in range(len(sl)):
         if i % 3 == 1:
             tl.append(sl[i].text)
-            vl.append(sl[i+1].text)
+            vl.append(sl[i+1].text+" bills views")
 
     driver.get("https://www.youtube.com/")
     for el in tl:
@@ -40,7 +40,7 @@ def get_content(driver, sl):
         el = str(d).split()
         for i in range(len(el)):
             if el[i] in ["лет", "года"]:
-                dl.append(el[i-1])
+                dl.append(el[i-1] + " years ago")
         driver.find_element_by_name("search_query").clear()
     driver.close()
     return tl, vl, hl, dl
@@ -54,8 +54,9 @@ def xls(tl, vl, hl, dl):
         worksheet.write("B" + str(i + 1), vl[i])
         worksheet.write("C" + str(i + 1), dl[i])
         worksheet.write("D" + str(i + 1), hl[i])
-    worksheet.set_column(0, 0, 20)
-    worksheet.set_column(3, 3, 50)
+    worksheet.set_column(0, 1, 20)
+    worksheet.set_column(2, 2, 15)
+    worksheet.set_column(3, 3, 50) 
     workbook.close()
 
 def main():
